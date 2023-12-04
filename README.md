@@ -1,7 +1,7 @@
 # Unity_ISS
 
-Kontrole aviona: 
-  Dodavanje thrusta (I), smanjivanje (J)
-  Roll (A) i (D)
-  Pitch (W) i (S)
-  Yaw (Q) i (E)
+Kontrole aviona: <br />
+  Dodavanje thrusta (I), smanjivanje (J)<br />
+  Roll (A) i (D)<br />
+  Pitch (W) i (S)<br />
+  Yaw (Q) i (E)<br />
