@@ -6,6 +6,9 @@ using TMPro;
 
 public class Plane : MonoBehaviour
 {
+    public GameObject explosion;
+    public float destroyPlaneOnSpeed = 700f;
+
     [Header("Plane Stats")]
     [Tooltip("How much the throttle ramps up or down.")]
     public float throttleIncrement = 0.2f;
@@ -18,6 +21,8 @@ public class Plane : MonoBehaviour
     private float roll;
     private float pitch;
     private float yaw;
+
+    private float speed;
 
 
     private float responseModifier {
@@ -51,6 +56,7 @@ public class Plane : MonoBehaviour
     {
         HandleInputs();
         UpdateHUD();
+        speed = rb.velocity.magnitude * 3.6f;
     }
 
     private void FixedUpdate()
@@ -78,5 +84,15 @@ public class Plane : MonoBehaviour
         hud.text = "Throttle: " + throttle.ToString("F1") + "%\n";
         hud.text += "Airspeed: " + (rb.velocity.magnitude * 3.6f).ToString("F1") + "km/h\n";
         hud.text += "Altitude: " + transform.position.y.ToString("F1") + "m";
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (speed > destroyPlaneOnSpeed) // if speed is over 700 km/h destroy the plane
+        {
+            Instantiate(explosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+            FindObjectOfType<GameManager>().EndGame();
+        }
     }
 }
