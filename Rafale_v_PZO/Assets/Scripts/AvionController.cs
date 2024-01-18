@@ -6,6 +6,7 @@ using TMPro;
 
 public class Plane : MonoBehaviour
 {
+    public AudioSource impactSoundSource;
     public GameObject explosion;
     public float destroyPlaneOnSpeed = 700f;
 
@@ -90,9 +91,22 @@ public class Plane : MonoBehaviour
     {
         if (speed > destroyPlaneOnSpeed) // if speed is over 700 km/h destroy the plane
         {
+            impactSoundSource.Play();
+            if (rb != null)
+            {
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                rb.isKinematic = true;
+            }
+            float delay = 1f;
             Instantiate(explosion, transform.position, Quaternion.identity);
-            Destroy(gameObject);
-            FindObjectOfType<GameManager>().EndGame();
+            Invoke("EndGame", delay);
         }
+    }
+
+    private void EndGame()
+    {
+        Destroy(gameObject);
+        FindObjectOfType<GameManager>().EndGame();
     }
 }
