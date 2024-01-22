@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Avion
+  - terrain
   layers:
   - Default
   - TransparentFX
